@@ -32,10 +32,12 @@ def ask_question(agent, question: str) -> str:
     """Send a question to agent and get answer."""
     try:
         response = agent.invoke({"input": question})
-        return response["output"]
+        # Debug - print to terminal to see what's coming back
+        print(f"DEBUG response: {response}")
+        output = response.get("output", "")
+        return str(output)
     except Exception as e:
         return f"❌ Error: {str(e)}"
-
 
 # ── Quick Test ────────────────────────────────────────
 if __name__ == "__main__":
