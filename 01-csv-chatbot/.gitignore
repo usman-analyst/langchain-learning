@@ -1,0 +1,17 @@
+# Environment - NEVER push this
+.env
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (if sensitive)
+# data/
