@@ -7,10 +7,11 @@ from langchain_core.documents import Document
 
 # ── Constants ─────────────────────────────────────────
 DOCUMENTS_DIR = "documents"
-CHUNK_SIZE     = 1000
-CHUNK_OVERLAP  = 200
+# CHUNK_SIZE     = 1000
+# CHUNK_OVERLAP  = 200
 
-
+CHUNK_SIZE    = 1500
+CHUNK_OVERLAP = 300
 # ── Load Single PDF ───────────────────────────────────
 def load_pdf(file_path: str) -> List[Document]:
     """Load a single PDF and return list of documents."""

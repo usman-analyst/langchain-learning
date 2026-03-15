@@ -2,7 +2,9 @@ import os
 import sys
 from typing import List
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+# from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
+
 from langchain_core.documents import Document
 from dotenv import load_dotenv
 
@@ -105,17 +107,12 @@ def get_or_build_vector_store(
 # ── Get Retriever ─────────────────────────────────────
 def get_retriever(
     vectorstore: Chroma,
-    k          : int = 4
+    k          : int = 6  # increased from 4 to 6
 ):
-    """
-    Convert vectorstore to retriever.
-    k = number of relevant chunks to retrieve per question.
-    """
     return vectorstore.as_retriever(
         search_type   = "similarity",
         search_kwargs = {"k": k}
     )
-
 
 # ── Test Retrieval ────────────────────────────────────
 def test_retrieval(
