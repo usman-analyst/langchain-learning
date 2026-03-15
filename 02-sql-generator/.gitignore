@@ -1,0 +1,18 @@
+# Environment
+.env
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Database
+*.db
+*.sqlite
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
