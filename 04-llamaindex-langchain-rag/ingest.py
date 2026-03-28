@@ -21,6 +21,7 @@ from llama_index.core import (
 )
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
+from llama_index.readers.file import PDFReader  # Explicit PDF reader using pypdf
 
 # -------------------------------------------------------------------
 # Load environment variables from .env file
@@ -39,8 +40,8 @@ Settings.llm = OpenAI(
 Settings.embed_model = OpenAIEmbedding(
     model="text-embedding-3-small"  # 1536 dimensions, cost-efficient
 )
-Settings.chunk_size = 1500     # Characters per chunk (same as Project 03)
-Settings.chunk_overlap = 300   # Overlap between chunks to preserve context
+Settings.chunk_size = 512      # Smaller chunks → more precise retrieval
+Settings.chunk_overlap = 50    # Overlap to preserve context at boundaries
 
 # -------------------------------------------------------------------
 # Directory Paths
@@ -66,7 +67,12 @@ def build_index() -> VectorStoreIndex:
         Run only once. Use load_index() or get_index() after that.
     """
     print("Loading PDFs from documents/ folder ...")
-    documents = SimpleDirectoryReader(DOCS_DIR).load_data()
+    # Explicitly pass PDFReader so LlamaIndex uses pypdf for text extraction
+    # Without this, SimpleDirectoryReader reads raw PDF bytes instead of text
+    documents = SimpleDirectoryReader(
+        DOCS_DIR,
+        file_extractor={".pdf": PDFReader()}
+    ).load_data()
     print(f"Loaded {len(documents)} document pages from PDFs")
 
     print("Building VectorStoreIndex — chunking + embedding ...")
